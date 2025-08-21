@@ -123,9 +123,13 @@ class LLMClient(weave.Model):
         )
         user_prompt = [user_prompt] if isinstance(user_prompt, str) else user_prompt
 
-        system_messages = [
-            {"role": "system", "content": prompt} for prompt in system_prompt
-        ]
+        if system_prompt is not None:
+            system_messages = [
+                {"role": "system", "content": prompt} for prompt in system_prompt
+            ]
+        else:
+            system_messages = []
+
         user_messages = []
         for prompt in user_prompt:
             if isinstance(prompt, Image.Image):
